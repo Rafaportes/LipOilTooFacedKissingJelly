@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Feliz Aniversário Victória</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #d8c6ff, #f5d4ff, #ffd6ec);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 380px;
+    background: #ffffffd9;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+  }
+
+  h1 {
+    color: #a675ff;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #6a3fa5;
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .gift-box {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    background: #cba0ff;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+  }
+
+  .gift-box:hover {
+    transform: scale(1.05);
+  }
+
+  .gift-box::before {
+    content: "🎁";
+    font-size: 3rem;
+  }
+
+  .tulips {
+    display: none;
+    font-size: 3rem;
+    margin-top: 15px;
+    animation: pop 0.5s ease-out;
+  }
+
+  @keyframes pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 999;
+  }
+
+  .download-btn {
+    margin-top: 15px;
+    background: #b788ff;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .download-btn:hover {
+    background: #a673ff;
+  }
+</style>
+</head>
+<body>
+
+<div class="confetti" id="confetti"></div>
+
+<div class="card" id="card">
+  <h1>Feliz Aniversário, Victória! 🎉💜</h1>
+  <p>Que seu novo ciclo seja ainda mais especial, com muito amor, saúde, prosperidade, felicidade, comprinhas e surpresas lindas! Você merece tudo de melhor hoje e sempre!</p>
+  <p>Você é luz, carinho e inspiração. Que cada dia te traga motivos para sorrir, coragem para sonhar mais alto e energia pra conquistar tudo o que você deseja — e que a vida te dê milhões de motivos para celebrar! Você é incrível e merece o mundo inteirinho! ✨</p>
+    <p>Clique no presente</p>
+  <div class="gift-box" id="gift"></div>
+  <div class="tulips" id="tulips">🌷🌷🌷</div>
+
+  <p style="margin-top:15px; font-size:0.9rem; color:#7a4bb7;">Para a futura nutricionista, da sua amiga que te ama muito Rafa 💗</p>
+
+  <button class="download-btn" id="downloadBtn">Baixar cartão como PNG</button>
+</div>
+
+<script>
+  // Gift interaction
+  const gift = document.getElementById("gift");
+  const tulips = document.getElementById("tulips");
+
+  gift.addEventListener("click", () => {
+    tulips.style.display = "block";
+    launchConfetti();
+  });
+
+  // Confetti generator
+  function launchConfetti() {
+    const confettiContainer = document.getElementById("confetti");
+    for (let i = 0; i < 30; i++) {
+      const confetto = document.createElement("div");
+      confetto.innerHTML = "🩷";
+      confetto.style.position = "absolute";
+      confetto.style.left = Math.random() * 100 + "%";
+      confetto.style.fontSize = Math.random() * 20 + 18 + "px";
+      confetto.style.animation = `fall ${2 + Math.random() * 2}s linear`;
+      confettiContainer.appendChild(confetto);
+
+      setTimeout(() => confetto.remove(), 4000);
+    }
+  }
+
+  // Falling animation
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @keyframes fall {
+      from { transform: translateY(-50px) rotate(0); opacity: 1; }
+      to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Download card as PNG
+  document.getElementById("downloadBtn").addEventListener("click", async () => {
+    const card = document.getElementById("card");
+    const canvas = await html2canvas(card);
+    const link = document.createElement("a");
+    link.download = "cartao_victoria.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+</script>
+
+<!-- HTML2CANVAS CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+</body>
+</html>
